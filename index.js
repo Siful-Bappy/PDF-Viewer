@@ -19,11 +19,11 @@ pdfjsLib
   .getDocument(pdf)
   .promise.then((data) => {
     initialState.pdfDoc = data;
-    // console.log("pdfDocument", initialState.pdfDoc);
+    console.log("pdfDocument", initialState.pdfDoc);
 
     pageCount.textContent = initialState.pdfDoc.numPages;
     // console.log(pageCount.textContent);
-    //   renderPage();
+      renderPage();
   })
   .catch((err) => {
     alert(err.message);
@@ -32,3 +32,8 @@ pdfjsLib
 // console.log(pdf)
 // const loadingTask = pdfjsLib.getDocument(pdf);
 // console.log(loadingTask);
+
+const renderPage = () => {
+    // console.log("I am rendering")
+    const data = initialState.pdfDoc.getPage(initialState.currentPage);
+}
