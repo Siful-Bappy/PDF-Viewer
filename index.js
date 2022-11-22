@@ -34,12 +34,9 @@ pdfjsLib
 // console.log(loadingTask);
 
 const renderPage = () => {
-  // console.log("I am rendering")
-  // const data = initialState.pdfDoc.getPage(initialState.currentPage).promise.then((page) => {console.log(page)});
-  // console.log();
 
   initialState.pdfDoc.getPage(initialState.currentPage).then((page) => {
-    console.log(page);
+
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
     const viewpoart = page.getViewport({
@@ -59,6 +56,7 @@ const renderPage = () => {
       transform: transform,
       viewport: viewpoart,
     };
+    console.log(canvas);
 
     page.render(renderCtx);
     pageNum.textContent = initialState.currentPage;
