@@ -42,6 +42,22 @@ const renderPage = () => {
       console.log(page);
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
+      const viewpoart = page.getViewport({
+        scale: initialState.zoom,
+      })
+
+      // console.log(viewpoart);
+      canvas.height = viewpoart.height;
+      canvas.width = viewpoart.width;
+
+      const renderCtx = {
+        canvasContext: ctx,
+        viewpoart: viewpoart,
+      }
+
+      page.render(renderCtx);
+      pageNum.textContent = initialState.currentPage;
     })
+
 
 }
