@@ -19,7 +19,7 @@ pdfjsLib
   .getDocument(pdf)
   .promise.then((data) => {
     initialState.pdfDoc = data;
-    console.log("pdfDocument", initialState.pdfDoc);
+    // console.log("pdfDocument", initialState.pdfDoc);
 
     pageCount.textContent = initialState.pdfDoc.numPages;
     // console.log(pageCount.textContent);
@@ -35,5 +35,13 @@ pdfjsLib
 
 const renderPage = () => {
     // console.log("I am rendering")
-    const data = initialState.pdfDoc.getPage(initialState.currentPage);
+    // const data = initialState.pdfDoc.getPage(initialState.currentPage).promise.then((page) => {console.log(page)});
+    // console.log();
+
+    initialState.pdfDoc.getPage(initialState.currentPage).then(page => {
+      console.log(page);
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+    })
+
 }
