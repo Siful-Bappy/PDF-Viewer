@@ -23,7 +23,7 @@ pdfjsLib
 
     pageCount.textContent = initialState.pdfDoc.numPages;
     // console.log(pageCount.textContent);
-      renderPage();
+    renderPage();
   })
   .catch((err) => {
     alert(err.message);
@@ -34,30 +34,33 @@ pdfjsLib
 // console.log(loadingTask);
 
 const renderPage = () => {
-    // console.log("I am rendering")
-    // const data = initialState.pdfDoc.getPage(initialState.currentPage).promise.then((page) => {console.log(page)});
-    // console.log();
+  // console.log("I am rendering")
+  // const data = initialState.pdfDoc.getPage(initialState.currentPage).promise.then((page) => {console.log(page)});
+  // console.log();
 
-    initialState.pdfDoc.getPage(initialState.currentPage).then(page => {
-      console.log(page);
-      const canvas = document.getElementById("canvas");
-      const ctx = canvas.getContext("2d");
-      const viewpoart = page.getViewport({
-        scale: initialState.zoom,
-      })
+  initialState.pdfDoc.getPage(initialState.currentPage).then((page) => {
+    console.log(page);
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    const viewpoart = page.getViewport({
+      scale: initialState.zoom,
+    });
 
-      // console.log(viewpoart);
-      canvas.height = viewpoart.height;
-      canvas.width = viewpoart.width;
+    // console.log(viewpoart);
+    canvas.height = viewpoart.height;
+    canvas.width = viewpoart.width;
 
-      const renderCtx = {
-        canvasContext: ctx,
-        viewpoart: viewpoart,
-      }
+    var outputScale = window.devicePixelRatio || 1;
+    var transform =
+      outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
 
-      page.render(renderCtx);
-      pageNum.textContent = initialState.currentPage;
-    })
+    const renderCtx = {
+      canvasContext: ctx,
+      transform: transform,
+      viewport: viewpoart,
+    };
 
-
-}
+    page.render(renderCtx);
+    pageNum.textContent = initialState.currentPage;
+  });
+};
